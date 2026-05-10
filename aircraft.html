@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Fleet | First Coast Flight School</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a1628;--navy-mid:#122040;--navy-light:#1a3060;--gold:#c9a84c;--gold-light:#e2c47a;--silver:#c0c8d8;--white:#ffffff;--text-muted:#8a9ab8;--font-display:'Playfair Display',serif;--font-body:'Barlow',sans-serif;--font-condensed:'Barlow Condensed',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--navy);color:var(--white);line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(10,22,40,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,0.2)}
+.nav-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--font-condensed);font-size:.95rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy)!important;padding:.5rem 1.25rem;border-radius:4px;font-weight:700!important}
+.hero{padding:7rem 2rem 3rem;text-align:center;background:linear-gradient(to bottom,rgba(10,22,40,0.9),rgba(10,22,40,0.7)),url('https://images.unsplash.com/photo-1436891678271-9c672565d8f6?w=1600&q=80') center/cover no-repeat}
+.hero-badge{font-family:var(--font-condensed);font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:.4rem 1.2rem;border-radius:2px;margin-bottom:1.2rem;display:inline-block}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);font-weight:900;color:var(--white);margin-bottom:.5rem}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:1.05rem;color:var(--silver);max-width:560px;margin:0 auto}
+.fleet-section{padding:4rem 2rem;background:var(--navy-mid)}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--font-condensed);font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;display:block}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--white);margin-bottom:.5rem}
+.section-title span{color:var(--gold)}
+.divider{width:48px;height:3px;background:var(--gold);border-radius:2px;margin:1rem 0 2.5rem}
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.aircraft-card{background:var(--navy);border:1px solid rgba(201,168,76,0.18);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .25s,transform .2s;position:relative}
+.aircraft-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.card-img{width:100%;height:210px;object-fit:cover;display:block;background:var(--navy-light)}
+.card-img-placeholder{width:100%;height:210px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.card-body{padding:1.4rem 1.5rem}
+.card-tag{font-family:var(--font-condensed);font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;display:block}
+.card-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.3rem}
+.card-rate{font-family:var(--font-condensed);font-size:1rem;font-weight:600;color:var(--gold-light);margin-bottom:1rem}
+.card-features{list-style:none;margin-bottom:1.2rem}
+.card-features li{font-size:.85rem;color:var(--silver);padding:.3rem 0;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid rgba(255,255,255,0.05)}
+.card-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.card-btn{width:100%;background:transparent;border:1.5px solid rgba(201,168,76,0.4);color:var(--gold);font-family:var(--font-condensed);font-size:.9rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.7rem;border-radius:5px;cursor:pointer;transition:background .2s}
+.card-btn:hover{background:rgba(201,168,76,0.1)}
+.taa-badge{position:absolute;top:1rem;right:1rem;background:var(--gold);color:var(--navy);font-family:var(--font-condensed);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border-radius:3px}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(6,14,26,0.92);overflow-y:auto;padding:2rem 1rem}
+.modal-overlay.active{display:block}
+.modal{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.25);border-radius:12px;max-width:900px;margin:0 auto;overflow:hidden;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;z-index:10;background:rgba(10,22,40,0.8);border:1px solid rgba(255,255,255,0.2);color:var(--white);font-size:1.2rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:rgba(201,168,76,0.2)}
+.gallery-main{width:100%;height:320px;object-fit:cover;display:block;background:var(--navy)}
+.gallery-main-placeholder{width:100%;height:320px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:4rem}
+.gallery-thumbs{display:flex;gap:6px;padding:8px;background:var(--navy);overflow-x:auto}
+.gallery-thumb{width:70px;height:50px;object-fit:cover;border-radius:4px;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.7;transition:border-color .2s,opacity .2s}
+.gallery-thumb:hover,.gallery-thumb.active{border-color:var(--gold);opacity:1}
+.modal-body{padding:2rem}
+.modal-header{margin-bottom:1.5rem}
+.modal-tag{font-family:var(--font-condensed);font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.3rem}
+.modal-title{font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--white);margin-bottom:.3rem}
+.modal-rate{font-family:var(--font-condensed);font-size:1.1rem;font-weight:600;color:var(--gold-light)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem}
+.modal-section h3{font-family:var(--font-condensed);font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid rgba(201,168,76,0.2)}
+.modal-features{list-style:none}
+.modal-features li{font-size:.9rem;color:var(--silver);padding:.4rem 0;display:flex;align-items:flex-start;gap:.6rem;border-bottom:1px solid rgba(255,255,255,0.05);line-height:1.4}
+.modal-features li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:.35rem}
+.modal-table-wrap{margin-top:1.5rem;overflow-x:auto}
+.modal-table-wrap h3{font-family:var(--font-condensed);font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid rgba(201,168,76,0.2)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{background:rgba(201,168,76,0.1);color:var(--gold);font-family:var(--font-condensed);font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .8rem;text-align:left;border-bottom:1px solid rgba(201,168,76,0.25);font-size:.75rem}
+td{color:var(--silver);padding:.55rem .8rem;border-bottom:1px solid rgba(255,255,255,0.05)}
+.checkout-section{margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(201,168,76,0.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0}
+.checkout-section h3{font-family:var(--font-condensed);font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.checkout-section ul{list-style:none}
+.checkout-section ul li{font-size:.88rem;color:var(--silver);padding:.3rem 0;display:flex;align-items:flex-start;gap:.6rem}
+.checkout-section ul li::before{content:'→';color:var(--gold);flex-shrink:0}
+.modal-actions{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--navy);font-family:var(--font-condensed);font-size:.9rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.8rem 1.8rem;border:none;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-outline{background:transparent;color:var(--silver);font-family:var(--font-condensed);font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.8rem 1.8rem;border:1.5px solid rgba(255,255,255,0.2);border-radius:4px;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+footer{background:#060e1a;padding:2rem;text-align:center;border-top:1px solid rgba(201,168,76,0.15)}
+.footer-logo{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.footer-logo span{color:var(--gold)}
+footer p{font-size:.82rem;color:var(--text-muted)}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.modal-grid{grid-template-columns:1fr}.modal-body{padding:1.2rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><span>First Coast</span> Flight School</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="index.html#packages">Packages</a></li>
+    <li><a href="aircraft.html" class="active">Aircraft</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Book a Flight</a></li>
+  </ul>
+</nav>
+<div class="hero">
+  <div class="hero-badge">✈ Training Fleet · KCRG Jacksonville</div>
+  <h1>Our <span>Aircraft</span></h1>
+  <p>Well-maintained, IFR-certified aircraft ready for every stage of your training — from your first lesson to your checkride.</p>
+</div>
+<section class="fleet-section">
+  <div class="container">
+    <span class="section-label">The Fleet</span>
+    <h2 class="section-title">Click Any Aircraft to <span>See Full Details</span></h2>
+    <div class="divider"></div>
+    <div class="fleet-grid">
+      <div class="aircraft-card" onclick="openModal('n1180m')">
+        <img class="card-img" src="https://beachbanners.com/wp-content/uploads/2023/09/N1180M-1-1.png" alt="N1180M" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">✈️</div>
+        <div class="card-body">
+          <span class="card-tag">Cessna 172K · 1969</span>
+          <div class="card-title">N1180M</div>
+          <div class="card-rate">$170 / hr (Wet)</div>
+          <ul class="card-features">
+            <li>IFR Certified</li><li>Garmin 530 WASS</li><li>Dual Garmin G5 PFD &amp; HSI</li><li>ADSB Out · Tablet Power Outlets</li>
+          </ul>
+          <button class="card-btn">View Full Specs →</button>
+        </div>
+      </div>
+      <div class="aircraft-card" onclick="openModal('n79015')">
+        <img class="card-img" src="https://beachbanners.com/wp-content/uploads/2023/09/N79015-1.png" alt="N79015" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">✈️</div>
+        <div class="card-body">
+          <span class="card-tag">Cessna 172K · 1968</span>
+          <div class="card-title">N79015</div>
+          <div class="card-rate">$170 / hr (Wet)</div>
+          <ul class="card-features">
+            <li>IFR Certified</li><li>Garmin 530 WASS (ADSB Interfaced)</li><li>Dual Garmin G5 PFD &amp; HSI</li><li>ADSB In &amp; Out · Tablet Power Outlets</li>
+          </ul>
+          <button class="card-btn">View Full Specs →</button>
+        </div>
+      </div>
+      <div class="aircraft-card" onclick="openModal('n1311s')">
+        <div class="taa-badge">TAA</div>
+        <img class="card-img" src="https://beachbanners.com/wp-content/uploads/2024/12/11S1.jpg" alt="N1311S" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">✈️</div>
+        <div class="card-body">
+          <span class="card-tag">Cessna 182P · 1976 · TAA</span>
+          <div class="card-title">N1311S</div>
+          <div class="card-rate">$210 Wet / $150 Dry per hr</div>
+          <ul class="card-features">
+            <li>Technically Advanced Airplane</li><li>GTN750Xi GPS · G500TXi PFD/MFD</li><li>GFC500 Autopilot · SmartGlide</li><li>Sirius XM · 80 Gal Extended Tanks</li>
+          </ul>
+          <button class="card-btn">View Full Specs →</button>
+        </div>
+      </div>
+      <div class="aircraft-card" onclick="openModal('n66111')">
+        <div class="taa-badge">TAA</div>
+        <img class="card-img" src="https://beachbanners.com/wp-content/uploads/2023/09/N66111-1-1.png" alt="N66111" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-img-placeholder" style="display:none">✈️</div>
+        <div class="card-body">
+          <span class="card-tag">Cessna 172Q · 1983 · TAA</span>
+          <div class="card-title">N66111</div>
+          <div class="card-rate">$175 / hr (Wet)</div>
+          <ul class="card-features">
+            <li>Technically Advanced Airplane</li><li>Garmin GTN 650Xi GPS</li><li>GFC500 Autopilot · SmartGlide</li><li>Sirius XM · 68 Gal Extended Tanks</li>
+          </ul>
+          <button class="card-btn">View Full Specs →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gallery">
+      <img id="galleryMain" class="gallery-main" src="" alt="" onerror="this.style.display='none';document.getElementById('galleryPlaceholder').style.display='flex'">
+      <div id="galleryPlaceholder" class="gallery-main-placeholder" style="display:none">✈️</div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <span class="modal-tag" id="modalTag"></span>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-rate" id="modalRate"></div>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-section"><h3>Equipment &amp; Avionics</h3><ul class="modal-features" id="modalFeatures"></ul></div>
+        <div class="modal-section" id="modalExtrasSection" style="display:none"><h3>Additional Info</h3><ul class="modal-features" id="modalExtras"></ul></div>
+      </div>
+      <div class="modal-table-wrap" id="modalWBWrap"><h3>Weight &amp; Balance Data</h3><table id="modalWBTable"></table></div>
+      <div class="modal-table-wrap" id="modalCompassWrap"><h3>Compass Correction Data</h3><table id="modalCompassTable"></table></div>
+      <div class="checkout-section" id="modalCheckout" style="display:none"><h3>Checkout Requirements</h3><ul id="modalCheckoutList"></ul></div>
+      <div class="modal-actions">
+        <a href="index.html#contact" class="btn-primary">Book This Aircraft</a>
+        <a href="index.html#contact" class="btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo"><span>First Coast</span> Flight School</div>
+  <p>KCRG · Jacksonville Executive Airport · Jacksonville, FL</p>
+  <p style="margin-top:.4rem">info.fcfs@gmail.com · (904) 706-2867 · (702) 292-7645</p>
+  <p style="margin-top:.6rem">© 2025 First Coast Flight School · All Rights Reserved</p>
+</footer>
+<script>
+const aircraft={n1180m:{tag:'Cessna 172K · 1969',title:'1969 Cessna CE-172K — N1180M',rate:'$170.00 Per Hour (Wet)',images:['https://beachbanners.com/wp-content/uploads/2023/09/N1180M-1-1.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-2.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-3.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-4.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-5.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-6.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-7.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-8.png','https://beachbanners.com/wp-content/uploads/2023/09/N1180M-9.png'],features:['IFR Certified: YES','Garmin 530 WASS','Dual Garmin G5 PFD and HSI','Secondary Nav/Comm unit with CDI','Transponder with ADSB Out','Power outlets for tablets'],extras:[],wb:{headers:['Basic Empty Weight','ARM (Inches)','Moment','Max Gross Weight','Useful Load','Tanks / Useable Fuel'],rows:[['1341.05 lbs.','42.52 in','57019.00 in/lbs.','2300 lbs.','958.95 lbs.','42/38 gal.']]},compass:{headers:['For Heading','N','30','60','E','120','150','S','210','240','W','300','330'],rows:[['Steer (CH):','2','32','62','93','123','152','181','211','242','273','303','332']]},checkout:[]},n79015:{tag:'Cessna 172K · 1968',title:'1968 Cessna CE-172K — N79015',rate:'$170.00 Per Hour (Wet)',images:['https://beachbanners.com/wp-content/uploads/2023/09/N79015-1.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-2.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-3.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-4.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-5.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-6-1.png','https://beachbanners.com/wp-content/uploads/2023/09/N79015-7.png'],features:['IFR Certified: YES','Garmin 530 WASS (ADSB Interfaced)','Dual Garmin G5 PFD and HSI','Secondary Nav/Comm unit with CDI','Transponder with ADSB In and Out','Power outlets for tablets (front)'],extras:[],wb:{headers:['Basic Empty Weight','ARM (Inches)','Moment','Max Gross Weight','Useful Load','Tanks / Useable Fuel'],rows:[['1367.97 lbs.','38.54 in','52723.40 in/lbs.','2300 lbs.','932.03 lbs.','42/38 gal.']]},compass:{headers:['For Heading','N','30','60','E','120','150','S','210','240','W','300','330'],rows:[['Steer (CH):','1','31','60','89','119','149','179','209','239','269','300','331']]},checkout:[]},n1311s:{tag:'Cessna 182P · 1976 · Technically Advanced Airplane',title:'1976 Cessna CE-182P — N1311S (TAA)',rate:'$210 / hr Wet · $150 / hr Dry',images:['https://beachbanners.com/wp-content/uploads/2024/12/11S1.jpg','https://beachbanners.com/wp-content/uploads/2024/12/11S2.jpg','https://beachbanners.com/wp-content/uploads/2024/12/11Sinterior.jpg'],features:['IFR Certified','Technically Advanced Airplane (TAA)','Customs sticker & radio license for international flights','Extended range fuel tanks — 80 gallons','GTN750Xi GPS/Nav/Comm','G500TXi PFD/MFD with engine monitoring EIS & synthetic vision','GI275 Backup','GNC255 Second Nav/Comm','GFC500 Autopilot with SmartGlide & Electronic Stability Protection','Sirius XM weather & entertainment, Telligence voice commands','Bluetooth connectivity tablet to panel','Power outlets front & rear · Complimentary headphones for passengers','O-470 230hp engine (replacing June 2026 with 300hp fuel injected IO-550)'],extras:[],wb:null,compass:null,checkout:['Completion of checkout guide on a flight with an instructor','No complex/high-perf time: minimum 100 hrs PIC total time','No complex/high-perf time: minimum 5 hrs dual in N1311S','No complex/high-perf time: completion of aircraft & avionics tests','With complex/high-perf time (>100 PIC): dual at instructor discretion','If instrument rated: knowledge of IFR avionics & coupled autopilot approaches required']},n66111:{tag:'Cessna 172Q · 1983 · Technically Advanced Airplane',title:'1983 Cessna CE-172Q — N66111 (TAA)',rate:'$175.00 Per Hour (Wet)',images:['https://beachbanners.com/wp-content/uploads/2023/09/N66111-1-1.png','https://beachbanners.com/wp-content/uploads/2023/09/N66111-4.png','https://beachbanners.com/wp-content/uploads/2026/02/Winter66111panel.jpg'],features:['IFR Certified','Technically Advanced Airplane (TAA)','Extended range fuel tanks — 68 gallons','Garmin GTN 650Xi GPS/Nav/Comm','Dual Garmin G5 PFD and HSI','Garmin GNC215 Nav/Comm — Second Radio','GFC500 Autopilot with SmartGlide & Electronic Stability Protection','Sirius XM weather & entertainment','Bluetooth connectivity tablet to panel','Power outlets for tablets front and rear','Complimentary headphones for passengers','O-360 180hp engine'],extras:[],wb:null,compass:null,checkout:['Completion of checkout guide on a flight with an instructor']}};
+function openModal(id){const a=aircraft[id];document.getElementById('modalTag').textContent=a.tag;document.getElementById('modalTitle').textContent=a.title;document.getElementById('modalRate').textContent=a.rate;const main=document.getElementById('galleryMain');const ph=document.getElementById('galleryPlaceholder');main.src=a.images[0];main.style.display='block';ph.style.display='none';const thumbsEl=document.getElementById('galleryThumbs');thumbsEl.innerHTML='';a.images.forEach((src,i)=>{const img=document.createElement('img');img.src=src;img.className='gallery-thumb'+(i===0?' active':'');img.onclick=()=>{main.src=src;main.style.display='block';ph.style.display='none';document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active'));img.classList.add('active')};thumbsEl.appendChild(img)});document.getElementById('modalFeatures').innerHTML=a.features.map(f=>`<li>${f}</li>`).join('');const es=document.getElementById('modalExtrasSection');if(a.extras&&a.extras.length>0){document.getElementById('modalExtras').innerHTML=a.extras.map(e=>`<li>${e}</li>`).join('');es.style.display='block'}else{es.style.display='none'}const wbWrap=document.getElementById('modalWBWrap');if(a.wb){wbWrap.style.display='block';document.getElementById('modalWBTable').innerHTML=`<thead><tr>${a.wb.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${a.wb.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>`}else{wbWrap.style.display='none'}const cw=document.getElementById('modalCompassWrap');if(a.compass){cw.style.display='block';document.getElementById('modalCompassTable').innerHTML=`<thead><tr>${a.compass.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${a.compass.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>`}else{cw.style.display='none'}const co=document.getElementById('modalCheckout');if(a.checkout&&a.checkout.length>0){document.getElementById('modalCheckoutList').innerHTML=a.checkout.map(c=>`<li>${c}</li>`).join('');co.style.display='block'}else{co.style.display='none'}document.getElementById('modalOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active');document.body.style.overflow=''}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
