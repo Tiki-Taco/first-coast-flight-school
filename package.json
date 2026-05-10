@@ -1,0 +1,12 @@
+{
+  "name": "first-coast-flight-school",
+  "version": "1.0.0",
+  "description": "First Coast Flight School Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
